@@ -1,8 +1,4 @@
-using BlazorServerLearning.Data;
 using BlazorServerLearning.DataAccess;
-
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,10 +6,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+
+
+
 
 builder.Services.AddDbContext<ItemDbContext>(cfg=>
 cfg.UseSqlServer(builder.Configuration.GetConnectionString("SQLServer")));
+
+
+
 
 var app = builder.Build();
 
@@ -25,7 +26,7 @@ if (!app.Environment.IsDevelopment())
 	app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 

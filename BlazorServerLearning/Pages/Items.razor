@@ -1,0 +1,22 @@
+﻿@using BlazorServerLearning.DataAccess
+@page "/items"
+@inject ItemDbContext dbContext
+<p>test</p>
+
+@if (dbContext.Items.Count()==0)
+{
+   <p>No items</p> 
+}        
+else
+{
+    @foreach (var item in dbContext.Items)
+    {
+        <p>@item.Id</p>
+        <p>@item.Name</p>
+        <p>@item.SomeValue</p>
+    }
+}
+
+@code {
+
+}
