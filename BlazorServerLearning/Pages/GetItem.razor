@@ -1,0 +1,33 @@
+﻿@using BlazorServerLearning.DataAccess;
+@using BlazorServerLearning.Models;
+@page "/get-item"
+@inject ItemDbContext dbContext
+
+<p>test</p>
+<form>
+    <input type="number">
+    <button type="submit" onclick="GetById()">Get</button>
+</form>     
+
+@if (Item is not null)
+{
+    <p>@Item.Id</p>
+    <p>@Item.Name</p>
+    <p>@Item.SomeValue</p>
+}
+
+
+
+@code {
+    int Id { get; set; }
+
+    Item Item { get; set; }
+
+    void GetById(int id)
+    {
+        Item = dbContext.Items.FirstOrDefault(i => i.Id == id);
+    }
+
+
+
+}
