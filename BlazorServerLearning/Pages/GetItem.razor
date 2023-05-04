@@ -3,11 +3,11 @@
 @page "/get-item"
 @inject ItemDbContext dbContext
 
-<p>test</p>
+
 <form>
-    <input type="number">
-    <button type="submit" onclick="GetById()">Get</button>
-</form>     
+    <InputNumber @bind-Value="@Id"></InputNumber>
+    <button type="button" onclick="GetById">Get</button>
+</form>
 
 @if (Item is not null)
 {
@@ -23,11 +23,10 @@
 
     Item Item { get; set; }
 
-    void GetById(int id)
+    void GetById()
     {
-        Item = dbContext.Items.FirstOrDefault(i => i.Id == id);
+        Console.WriteLine("test");
+       // Item = dbContext.Items.FirstOrDefault(i => i.Id == id);
     }
-
-
 
 }

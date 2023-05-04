@@ -9,9 +9,11 @@ builder.Services.AddServerSideBlazor();
 
 
 
+//builder.Services.AddDbContextFactory<ItemDbContext>(cfg=>
+//cfg.UseSqlServer(builder.Configuration.GetConnectionString("SQLServer")));
 
-builder.Services.AddDbContext<ItemDbContext>(cfg=>
-cfg.UseSqlServer(builder.Configuration.GetConnectionString("SQLServer")));
+builder.Services.AddDbContextFactory<ItemDbContext>(cfg =>
+cfg.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 
 
 
