@@ -6,12 +6,13 @@ using Microsoft.EntityFrameworkCore.Internal;
 namespace BlazorServerLearning.DataAccess
 {
     public class ItemRepository : IItemRepository
-    {
-        private readonly DbContextFactory<ItemDbContext> dbContextFactory;
+    {    
+        private readonly IServiceScopeFactory scopeFactory;
 
-        public ItemRepository(DbContextFactory<ItemDbContext> dbContextFactory)
+        public ItemRepository(
+        IServiceScopeFactory scopeFactory)
         {
-            this.dbContextFactory = dbContextFactory;
+            this.scopeFactory = scopeFactory;
         }
         public Item Create(Item entity)
         {
@@ -25,16 +26,17 @@ namespace BlazorServerLearning.DataAccess
 
         public IEnumerable<Item> GetAll()
         {
-            var dbContext = dbContextFactory.CreateDbContext();
-            var result = dbContext.Items.AsEnumerable();
-            return result;
+            using (var scope = scopeFactory.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<ItemDbContext>();
+                var result = dbContext.Items.AsEnumerable();
+                return result;
+            }                
         }
 
         public Item GetById(int id)
         {
-            var dbContext = dbContextFactory.CreateDbContext();
-            var result = dbContext.Items.FirstOrDefault(i => i.Id == id);
-            return result;
+            throw new NotImplementedException();
         }
 
         public Item Update(Item entity)

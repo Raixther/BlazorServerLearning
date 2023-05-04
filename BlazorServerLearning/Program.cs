@@ -6,13 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
 
 
-
-//builder.Services.AddDbContextFactory<ItemDbContext>(cfg=>
+//builder.Services.AddDbContext<ItemDbContext>(cfg=>
 //cfg.UseSqlServer(builder.Configuration.GetConnectionString("SQLServer")));
 
-builder.Services.AddDbContextFactory<ItemDbContext>(cfg =>
+builder.Services.AddDbContext<ItemDbContext>(cfg =>
 cfg.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL")));
 
 

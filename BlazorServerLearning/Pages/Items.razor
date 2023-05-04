@@ -1,15 +1,13 @@
 ﻿@using BlazorServerLearning.DataAccess
 @page "/items"
-@inject ItemDbContext dbContext
-<p>test</p>
-
-@if (dbContext.Items.Count()==0)
+@inject ItemRepository repo;
+@if (repo.GetAll().Count()==0)
 {
    <p>No items</p> 
 }        
 else
 {
-    @foreach (var item in dbContext.Items)
+    @foreach (var item in repo.GetAll())
     {
         <p>@item.Id</p>
         <p>@item.Name</p>
