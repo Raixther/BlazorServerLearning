@@ -1,19 +1,9 @@
 ﻿@using BlazorServerLearning.DataAccess
 @page "/items"
-@inject ItemRepository repo;
-@if (repo.GetAll().Count()==0)
-{
-   <p>No items</p> 
-}        
-else
-{
-    @foreach (var item in repo.GetAll())
-    {
-        <p>@item.Id</p>
-        <p>@item.Name</p>
-        <p>@item.SomeValue</p>
-    }
-}
+
+<button>GetAll</button>
+<button>GetById</button>
+<button>Delete</button>
 
 @code {
 

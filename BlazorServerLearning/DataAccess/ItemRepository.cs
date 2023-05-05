@@ -16,12 +16,26 @@ namespace BlazorServerLearning.DataAccess
         }
         public Item Create(Item entity)
         {
-            throw new NotImplementedException();
+            using (var scope = scopeFactory.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<ItemDbContext>();
+                dbContext.Items.Add(entity);
+                dbContext.SaveChanges();
+                return entity;
+            }
         }
 
         public bool DeleteById(int id)
         {
-            throw new NotImplementedException();
+            using (var scope = scopeFactory.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<ItemDbContext>();
+                var item = dbContext.Items.FirstOrDefault(i=>i.Id==id);
+                if (item is null)  return false;            
+                dbContext.Items.Remove(item); 
+                dbContext.SaveChanges();
+                return true;         
+            }
         }
 
         public IEnumerable<Item> GetAll()
@@ -34,9 +48,14 @@ namespace BlazorServerLearning.DataAccess
             }                
         }
 
-        public Item GetById(int id)
+        public Item GetById(int id)//null
         {
-            throw new NotImplementedException();
+            using (var scope = scopeFactory.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<ItemDbContext>();
+                var result = dbContext.Items.FirstOrDefault(i=>i.Id==id);
+                return result;
+            }
         }
 
         public Item Update(Item entity)
